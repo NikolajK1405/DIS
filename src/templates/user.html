@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>display user</title>
+  </head>
+  <body>
+    {% for user in users %}
+    <h1>{{user.name}}</h1>
+    <p>{{user.UID}}</p>
+    {% endfor %}
+  </body>
+</html>
