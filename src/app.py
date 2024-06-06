@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -12,9 +12,13 @@ users = [
     ]
      
 
-@app.route('/')
-def hello():
-    return 'DIKUs største baller!'
+@app.route('/', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        return f"Received: {username}, {password}"
+    return render_template('login.html')
 
 @app.route('/users')
 def user():
