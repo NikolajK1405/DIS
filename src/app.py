@@ -96,12 +96,7 @@ def post():
         
         cur.execute("select * from posts")
         pid = len(cur.fetchall()) + 1
-<<<<<<< HEAD
         uid = session.get('uid')
-=======
-        uid = session.get('uid')[0]
-        kid = 1 # implement propper kebab selection
->>>>>>> origin
         
         get = "select * from posts"
         d = date.today().strftime("%d/%m-%y")
@@ -110,7 +105,7 @@ def post():
 
         cur.execute(insert, (pid, title, rating, uid, kid, d, status))
         conn.commit()
-<<<<<<< HEAD
+
         return redirect(url_for("home"))
 
     else:
@@ -118,10 +113,6 @@ def post():
         kebabs = cur.fetchall()
     
         return render_template("post.html", kebabs = kebabs)
-=======
-        return redirect(url_for("start"))
-    return render_template("post.html")
->>>>>>> origin
 
 @app.route('/kebabPlaces', methods = ['POST', 'GET'])
 def kebabPlaces():
