@@ -10,3 +10,4 @@ CONSTRAINT kebab_pk PRIMARY KEY (kid));
 copy  Kebabsted(kid,name,rating,adresse,menu)
             from '/Users/nikolajkrarup/Documents/DocsNikospro/Noter/DIS/grup/DIS/tmp/kebab.csv'
             WITH (FORMAT CSV, delimiter ',',HEADER, ENCODING 'UTF8');
+
