@@ -10,7 +10,7 @@ from psycopg2.sql import NULL
 
 app = Flask(__name__)
 
-db = "dbname='***' user='***' host='localhost' password='***'"
+db = "dbname='test' user='postgres' host='localhost' password='emil494k'"
 
 conn = psycopg2.connect(db)
 cur = conn.cursor()
@@ -86,7 +86,13 @@ def cAccount():
             flash('Username already exists!')
     return render_template("cAccount.html")
         
-        
+@app.route('/kebabPlaces', methods=['POST', 'GET'])
+def kebabPlaces():
+    find = "select * from Kebabsted"
+    cur.execute(find)
+    places = cur.fetchall()
+    print(places)
+    return render_template("kebabPlaces.html", places = places)
 
 #@app.route('/users')
 #def user():

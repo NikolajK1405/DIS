@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kebab Places</title>
+</head>
+<body>
+    {% for place in places %}
+    <h1>{{place[1]}}</h1>
+    <p>Address: {{place[3]}}</p>
+    <p>Rating: {{place[2]}}</p>
+    <p>Menu: {{place[4]}}</p>
+    {% endfor %}
+</body>
+</html>
