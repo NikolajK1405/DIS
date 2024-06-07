@@ -4,10 +4,11 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 import os
 import glob
+from datetime import date
 
 app = Flask(__name__)
 
-db = "dbname='***' user='***' host='***' password='***'"
+db = "dbname='nikolajkrarup' user='nikolajkrarup' host='localhost' password='Charlie04.'"
 
 conn = psycopg2.connect(db)
 cur = conn.cursor()
@@ -30,18 +31,20 @@ def login():
     find = " SELECT * from users where username = %s and password = %s "
 
     cur.execute(find, (username, password))
-
-    LoggedIn = len(cur.fetchall()) != 0
+    user_row = cur.fetchone()
+    LoggedIn = len(user_row) != 0
 
     if LoggedIn:
         session['logged_in'] = True
         session['username'] = username
+        session['uid'] =user_row[0]
     else:
         flash('wrong password!')
     return redirect(url_for("home"))
 
 @app.route('/cAccount', methods=['POST', 'GET'])
 def cAccount():
+    cur = conn.cursor()
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -63,6 +66,28 @@ def cAccount():
     return render_template("cAccount.html")
         
         
+@app.route('/post', methods = ['POST', 'GET'])
+def post():
+    cur = conn.cursor()
+    if request.method == 'POST':
+        title = request.form['title']
+        rating = request.form['rating']
+        status = request.form['status']
+        
+        cur.execute("select * from posts")
+        pid = len(cur.fetchall()) + 1
+        uid = session.get('uid')
+        kid = 1 # implement propper kebab selection
+        
+        get = "select * from posts"
+        d = date.today().strftime("%d/%m-%y")
+
+        insert = "INSERT INTO posts(pid, title, rating, creator_id, kebab_id, date, status) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+
+        cur.execute(insert, (pid, title, rating, uid, kid, d, status))
+        conn.commit()
+        return redirect(url_for("home"))
+    return render_template("post.html")
 
 #@app.route('/users')
 #def user():
