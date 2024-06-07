@@ -1,3 +1,33 @@
 kid,name,rating,adresse,menu
-001,Divans,4.5,Nørrebrogade 245/ 2200 København,durum/pita/pizza
-002,Doner King,4,Falkoner Alle 73A/ 2000 Frederiksberg,wrap/pita/berliner
+001,Zeynos,4.8,Frederikssundsvej 175 - 2700 Brønshøj-Husum,Pita/Durum/Box/Bowl/Tyrkisk brød/Pommes/Chicken tenders
+002,Husum Kebab,4.3,Frederikssundsvej 282 - 2700 København,Pita/Durum/Box/Tyrkisk brød/Pizza Sandwich/ Kylling/ Chichken tenders
+003,Tadim Kebab House,4.4,Frederikssundsvej 301 - 2700 København,Pita/Durum/Box/Tyrkisk brød/Burger/Pommes/Salat
+004,Husum Chicken & Sandwich, 4.2, Frederikssundsvej 307 - 2700 København, Pita/Durum/Pommes/Kyllingebryst/Hotwings/ Kyllingelår/Fiskefillet 
+005,Husum Kebab, 4.7, Frederikssundsvej 310 - 2700 København, 0.5 Kylling/Kebab/Pita/Durum/Tyrkisk brød/Burger/Nuggets/Hotdog/Pommes
+006,Doneros Shawarma,4.6,Herlev Hovedgade 60 - 2730 Herlev, Pita/Durum/Tyrkisk brød/Box/Bowl/Retter
+007,Brønshøj Kebab,4.5,Frederikssundsvej 192 - 2700 København,Pita/Durum/Tyrkisk brød/Irakisk brød/Box/Nuggets/Pommes/Hotdog
+008,Mina Kebab, 4.8,Frederikssundsvej 183A - 2700 København, Pita/Durum/Tyrkisk brød/Box/Burger/Hotdog/Pommes
+009,Koc Kebab & Pizza, 4.5,Silkeborgvej 224 - 8230 Aarhus, Pita/Durum/Pizza/Pommes
+010,Stations Kebab Helsinge, 4.9,39 Østergade - 3200 Helsinge,Pita/Durum/Sandwich/Burger/Box/Nuggets/Fiskefillet/Pommes
+011,Corner Sandwich & Kebab, 3.9,Vibekevej 2 - 3400 Hillerød,Pita/Durum/Sandwich/Burger/Pommes/Nuggets/Fiskefillet
+012,The Kebab,4.2,Roskildevej 65 - 2000 Frederiksberg,Pita/Durum/Box/Tyrkisk brød/Burger/Nachos/Pasta salat
+013,Mr. Kebab,3.9,Valby Langgade 132 - 2500 København,Pita/Durum/Tyrkisk brød/Burger/Pommes/Hotdog
+014,Brango Kebab Not Just Any Kebab,3.7,Valby Langgade53st - 2500 Valby,Pita/Durum/Tyrkisk brød/Pommes
+015,Valby's Grill & Kebab,3.7,Valby Langgade 100 - 2500 København,Pita/Durum/Tyrkisk brød/Indbagt Pizza/Box/Pizza/Salat/Fiskefillet/Pommes
+016,Kebab Station,4.3,Carl Jacobsens Vej 17 - 2500 København,Pita/Durum/Tyrkisk brød/Box/Burger/Hotdog/Pommes/Nuggets
+017,Pasha Kebab,3.9,Enghavevej 59 - 1674 København, Spyd/Pita/Durum/Burger/Hotdog/Salat
+018,Dünyam Shawarma House,4.1,Istedgade 140 - 1650 København,Pita/Durum/Box/Burger/Hotdog
+019,Sheik Valby,3.9,Toftegårds Allé 6 - 2200 Valby,Pita/Durum/Burger/Bowl/Tyrkisk Sandwich/Nuggets/Hotdog
+020,Den Grønne Shawarma,3.6,Falkoner Alle 26A - 2000 Frederiksberg,Pita/Durum/Burger/Salat
+021,Sheik istedgade 121,3.3,Istedgade 121 - 1650 København,Pita/Durum/Sandwich/Hotdog/Nuggets/Pommes
+022,City Shawarma & Delikatesser v/Murat Demir,2.0,Istedgade 69 - 1650 København,Pita/Durum
+023,Mujaffas Schawarma v/Seyed Mohammad Jalali,3.7,Istedgade 31 - 1650 København,Pita/Durum/Retter/Burger/Salat/Nuggets/Fiskefillet/Pommes
+024,Shawarma Grill-House,3.8,Frederiksberggade 36 - 1459 København,Spyd/Pita/Durum/Box/Burger/Samosaer
+025,Shawarma Kebap Palace,2.5,Frederiksberggade 30 - 1459 København, Pita/Durum/Pommes/Fiskefillet/Burger/Is
+026,Shawarma Factory,3.9,Frederiksborggade 10 - 1360 København,Pita/Durum/Burger/Spyd/Box/Fiskefillet
+027,Doner Kebab,4.3,Gammeltorv 2 - 1457 København,Pita/Durum/Ret/Tyrkisk brød/Box/Pommes
+028,East Kebab,4.7,Østerbrogade 25 - 2100 København,Pita/Durum/Sesame brød/Pommes/
+029,Kebabis, 4.0,Frederikssundsvej 15D - 2400 København,Pita/Durum/Burger/Box/Burger/Pommes
+030,Flamingo,4.0,Nørrebrogade 221 - 2200 København,Pita/Durum/Tyrkisk brød/Box/Burger/Ret/Pizza/Pizza sandwich/Hotdog/Pommes
+031,Divan,4.8,Nørrebrogade 245 - 2200 København,Pita/Durum/Tyrkisk brød/Box/Pizza/Ret/Burger/Pizza sandwich/Hotdog/Salat
+032,Dilan's Pizzaria & Café,4.8,Jagtvej 92 - 2200 København,Pita/Durum/Box/Burger/Pasta/Pizza/Mexicansk Pizza/Pizza sandwich

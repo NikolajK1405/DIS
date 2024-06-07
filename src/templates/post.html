@@ -8,7 +8,16 @@
     <form action="/post" method="POST">
         <label for="title">Title</label><br>
         <input type="text" name="title" id="title" required><br><br>
-
+	
+	  <label for="lang">Kebab place</label><br>
+	  <select name="kebab" id="kebab" size="4">
+	    {% for kebab in kebabs %}
+            <option value="{{kebab[0]}}">{{kebab[1]}}</option>
+	    {% else %}
+	    <option>No kebabs available</option>
+	    {% endfor %}
+	  </select><br><br>
+    
         <label for="rating">Rating</label><br>
         <input type="text" name="rating" id="rating" required><br><br>
 

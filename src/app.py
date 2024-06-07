@@ -11,7 +11,7 @@ from psycopg2.sql import NULL
 
 app = Flask(__name__)
 
-db = "dbname='***' user='***' host='localhost' password='***'"
+db = "dbname='nikolajkrarup' user='nikolajkrarup' host='localhost' password='Charlie04.'"
 
 conn = psycopg2.connect(db)
 cur = conn.cursor()
@@ -44,6 +44,7 @@ def home():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    
     username = request.form['username']
     password = request.form['password']
 
@@ -51,12 +52,12 @@ def login():
 
     cur.execute(find, (username, password))
 
-    user = cur.fetchall()
+    user = cur.fetchone()
     LoggedIn = len(user) != 0
 
     if LoggedIn:
         session['logged_in'] = True
-        session['uid'] = user[0]
+        session['uid'] = (user[0])[0]
     else:
         flash('wrong password!')
     return redirect(url_for("start"))
@@ -96,11 +97,11 @@ def post():
         title = request.form['title']
         rating = request.form['rating']
         status = request.form['status']
+        kid = request.form['kebab']
         
         cur.execute("select * from posts")
         pid = len(cur.fetchall()) + 1
         uid = session.get('uid')
-        kid = 1 # implement propper kebab selection
         
         get = "select * from posts"
         d = date.today().strftime("%d/%m-%y")
@@ -110,7 +111,12 @@ def post():
         cur.execute(insert, (pid, title, rating, uid, kid, d, status))
         conn.commit()
         return redirect(url_for("home"))
-    return render_template("post.html")
+
+    else:
+        cur.execute("select kid, name from kebabsted order by name asc")
+        kebabs = cur.fetchall()
+    
+        return render_template("post.html", kebabs = kebabs)
 
 #@app.route('/users')
 #def user():

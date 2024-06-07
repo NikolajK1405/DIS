@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS users( uid char(3), username char(20) NOT NULL,
 
 
 -- (chat)
-INSERT INTO users VALUES ('001', 'tis', 'mand', 23);
+INSERT INTO users VALUES ('1', 'tis', 'mand', 23);
 
-INSERT INTO users VALUES ('002', 'simon', 'sion', 100);
+INSERT INTO users VALUES ('2', 'simon', 'sion', 100);
