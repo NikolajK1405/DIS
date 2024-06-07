@@ -6,6 +6,6 @@ menu char(40),
 CONSTRAINT kebab_pk PRIMARY KEY (kid));
 
 copy  Kebabsted(kid,name,rating,adresse,menu)
-            from '/Users/nikolajkrarup/Documents/DocsNikospro/Noter/DIS/grup/DIS/tmp/kebab.csv'
+            from '***'
             delimiter ','
             CSV HEADER;
