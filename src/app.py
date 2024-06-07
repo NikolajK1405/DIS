@@ -11,7 +11,7 @@ from psycopg2.sql import NULL
 
 app = Flask(__name__)
 
-db = "dbname='test' user='postgres' host='localhost' password='emil494k'"
+db = "dbname='***' user='***' host='localhost' password='***'"
 
 conn = psycopg2.connect(db)
 cur = conn.cursor()
