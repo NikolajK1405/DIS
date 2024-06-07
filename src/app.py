@@ -26,21 +26,16 @@ def start():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        return redirect(url_for("home"))
-
-@app.route('/home',  methods=['POST', 'GET'])
-def home():
-    username = None
-    kebabnum = None
-    if session.get('logged_in'):
-        uid = session.get('uid')[0]
-        find = " SELECT username, kebabnum from users where uid = %s"
-        cur.execute(find, (uid,))
-        user = cur.fetchone()
-        username = user[0]
-        kebabnum = user[1]
-    return render_template("home.html", username=username, kebabnum = kebabnum)
-
+        username = None
+        kebabnum = None
+        if session.get('logged_in'):
+            uid = session.get('uid')[0]
+            find = " SELECT username, kebabnum from users where uid = %s"
+            cur.execute(find, (uid,))
+            user = cur.fetchone()
+            username = user[0]
+            kebabnum = user[1]
+        return render_template("home.html", username=username, kebabnum = kebabnum)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -101,7 +96,12 @@ def post():
         
         cur.execute("select * from posts")
         pid = len(cur.fetchall()) + 1
+<<<<<<< HEAD
         uid = session.get('uid')
+=======
+        uid = session.get('uid')[0]
+        kid = 1 # implement propper kebab selection
+>>>>>>> origin
         
         get = "select * from posts"
         d = date.today().strftime("%d/%m-%y")
@@ -110,6 +110,7 @@ def post():
 
         cur.execute(insert, (pid, title, rating, uid, kid, d, status))
         conn.commit()
+<<<<<<< HEAD
         return redirect(url_for("home"))
 
     else:
@@ -117,6 +118,17 @@ def post():
         kebabs = cur.fetchall()
     
         return render_template("post.html", kebabs = kebabs)
+=======
+        return redirect(url_for("start"))
+    return render_template("post.html")
+>>>>>>> origin
+
+@app.route('/kebabPlaces', methods = ['POST', 'GET'])
+def kebabPlaces():
+    find = "select * from Kebabsted"
+    cur.execute(find)
+    places = cur.fetchall()
+    return render_template("kebabPlaces.html", places = places)
 
 #@app.route('/users')
 #def user():

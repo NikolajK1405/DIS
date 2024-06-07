@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Homepage</title>
     <style>
         .button {
             display: inline-block;
@@ -12,6 +12,20 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+        }
+        .link {
+            padding: 10px 20px;
+            background-color: #808080;
+            color: #ffffff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 40px;
         }
     </style>
 </head>
@@ -32,5 +46,6 @@
     <p>Kebab Score: {{kebabnum}}</p><bt>
     <p>Eaten kebab recently?</p>
     <a href="/post" class="button">Post about it!</a>
+    <a href="/kebabPlaces" class="link"> Kebab Places</a>
 </body>
 </html>
