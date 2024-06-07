@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post</title>
+</head>
+<body>
+    <h1>Post</h1>
+    <form action="/post" method="POST">
+        <label for="title">Title</label><br>
+        <input type="text" name="title" id="title" required><br><br>
+
+        <label for="rating">Rating</label><br>
+        <input type="text" name="rating" id="rating" required><br><br>
+
+	<label for="status">Status</label><br>
+        <input type="text" name="status" id="status" required><br><br>
+
+        <input type="Post!" value="Post!">
+    </form>
+</body>
+</html>
