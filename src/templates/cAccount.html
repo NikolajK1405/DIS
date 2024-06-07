@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Account Creation</title>
 </head>
 <body>
-    <h1>Login</h1>
+    <h1>Create an account</h1>
 
     <!-- Flash Messages Display Area * CHAAAAAT * -->
     {% with messages = get_flashed_messages() %}
@@ -18,7 +18,7 @@
     {% endif %}
     {% endwith %}
 
-    <form action="/login" method="POST">
+    <form action="/cAccount" method="POST">
         <label for="username">Username</label><br>
         <input type="text" name="username" id="username" required><br><br>
 
@@ -27,6 +27,6 @@
 
         <input type="submit" value="Submit">
     </form>
-    <a href="/cAccount" class="button-link">Create Account</a>
+    <a href="/login" class="button-link">Back to login</a>
 </body>
 </html>
