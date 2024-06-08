@@ -160,7 +160,6 @@ def denLokale():
                                               where L.uid = %s and L.kid = K.kid'''
     cur.execute(find, (uid,))
     lokale = cur.fetchone()
-    print(f"{lokale}")
     if lokale == None:
         msg = "You haven't picked a Lokal"
         return render_template("lokale.html", lokale = msg, kebabs = kebabs)
