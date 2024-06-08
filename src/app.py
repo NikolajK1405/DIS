@@ -138,6 +138,36 @@ def kebabPlaces():
     places = cur.fetchall()
     return render_template("kebabPlaces.html", places = places)
 
+@app.route('/denLokale', methods = ['POST', 'GET'])
+def denLokale():
+    uid = session.get('uid')
+    cur.execute("select * from kebabsted order by name asc")
+    kebabs = cur.fetchall()      
+
+    if request.method == 'POST':
+        t = request.form['type']
+        newLokale = request.form['kebab']
+        if t == "insert": 
+            insert = "insert into lokale(uid, kid) values (%s, %s)"
+            cur.execute(insert, (uid, newLokale))
+            conn.commit()
+        elif t == "update":
+            update = "update lokale set kid = %s where uid = %s"
+            cur.execute(update, (newLokale, uid))
+            conn.commit()
+
+    find = '''select K.name, K.rating, K.adresse, K.menu from Kebabsted K, lokale L 
+                                              where L.uid = %s and L.kid = K.kid'''
+    cur.execute(find, (uid,))
+    lokale = cur.fetchone()
+    print(f"{lokale}")
+    if lokale == None:
+        msg = "You haven't picked a Lokal"
+        return render_template("lokale.html", lokale = msg, kebabs = kebabs)
+    else:
+        return render_template("lokale.html", lokale = lokale, kebabs = kebabs)
+        
+
 #@app.route('/users')
 #def user():
 #    return render_template('user.html', users = users)
