@@ -31,12 +31,9 @@
 </head>
 <body>
     <h1>Welcome back {{username}}!</h1>
-
-    <!-- Flash Messages Display Area * CHAAAAAT * -->
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <div style="color: red;">
-        <!-- Optionally style the message display -->
         {% for message in messages %}
         <p>{{ message }}</p>
         {% endfor %}
