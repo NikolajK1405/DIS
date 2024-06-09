@@ -152,7 +152,7 @@ def feed():
     if not session.get('logged_in'):
         return render_template('login.html')
     cur = conn.cursor()
-    find = '''select distinct P.title, U.username, K.name, P.rating, P.status, P.pid from Kebabsted K, posts P, users U, follows F
+    find = '''select distinct P.title, U.username, K.name, P.rating, P.status, P.date, P.pid from Kebabsted K, posts P, users U, follows F
               where P.uid = U.uid and P.kid = K.kid and (P.uid = F.fid or P.uid = %s) order by P.pid asc'''
     uid = session.get('uid')
     cur.execute(find, (uid,))
