@@ -245,10 +245,6 @@ def followers():
     
     return render_template("followers.html", follows = follows)
 
-#@app.route('/users')
-#def user():
-#    return render_template('user.html', users = users)
-
 if __name__ == '__main__':
     app.secret_key = os.urandom(12)
     app.run(debug=True)
