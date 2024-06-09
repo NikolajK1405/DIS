@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-    <p>A lokal is the kebab place you recommend in your area and enjoy the most.</p>
+    <p>"Den Lokale" is the kebab place you recommend in your area and enjoy the most.</p>
     {% if lokale == "You haven't picked a Lokal" %}
     <p>{{lokale}}</p>
     <p>You can pick one from the list below:</p>
@@ -36,6 +36,7 @@
     </form><br><br>
     {%else%}
     <h1>{{lokale[0]}}</h1>
+    <p>Visits: {{lokale[4]}}</p>
     <p>Address: {{lokale[2]}}</p>
     <p>Rating: {{lokale[1]}}</p>
     <p>Menu: {{lokale[3]}}</p><br><br>

@@ -11,7 +11,7 @@ from psycopg2.sql import NULL
 
 app = Flask(__name__)
 
-db = "dbname='test' user='postgres' host='localhost' password='emil494k'"
+db = "dbname='nikolajkrarup' user='nikolajkrarup' host='localhost' password='Charlie04.'"
 
 conn = psycopg2.connect(db)
 cur = conn.cursor()
@@ -126,6 +126,16 @@ def post():
         cur.execute(update, (kid, kid)) 
         conn.commit()
 
+        get = "select * from lokale where uid = %s"
+        cur.execute(get, (uid,))
+        lokale = cur.fetchone()
+        lokale_id = lokale[1]
+        if kid == lokale_id:
+            visits = int(lokale[2])
+            update = "update lokale set visits = %s where kid = %s"
+            cur.execute(update, (visits+1, kid))
+            conn.commit()
+
         return redirect(url_for("start"))
 
     else:
@@ -148,7 +158,7 @@ def denLokale():
         t = request.form['type']
         newLokale = request.form['kebab']
         if t == "insert": 
-            insert = "insert into lokale(uid, kid) values (%s, %s)"
+            insert = "insert into lokale(uid, kid, visits) values (%s, %s, 0)"
             cur.execute(insert, (uid, newLokale))
             conn.commit()
         elif t == "update":
@@ -156,7 +166,7 @@ def denLokale():
             cur.execute(update, (newLokale, uid))
             conn.commit()
 
-    find = '''select K.name, K.rating, K.adresse, K.menu from Kebabsted K, lokale L 
+    find = '''select K.name, K.rating, K.adresse, K.menu, L.visits from Kebabsted K, lokale L 
                                               where L.uid = %s and L.kid = K.kid'''
     cur.execute(find, (uid,))
     lokale = cur.fetchone()
