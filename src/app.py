@@ -87,6 +87,8 @@ def cAccount():
         
 @app.route('/post', methods = ['POST', 'GET'])
 def post():
+    if not session.get('logged_in'):
+        return render_template('login.html')
     cur = conn.cursor()
     cur.execute("select kid, name from kebabsted order by name asc")
     kebabs = cur.fetchall()
@@ -144,9 +146,11 @@ def post():
 
 @app.route('/feed', methods = ['GET'])
 def feed():
+    if not session.get('logged_in'):
+        return render_template('login.html')
     cur = conn.cursor()
     find = '''select P.title, U.username, K.name, P.rating, P.status from Kebabsted K, posts P, users U
-            where P.creator_id = U.uid and P.kebab_id = K.kid'''
+              where P.creator_id = U.uid and P.kebab_id = K.kid'''
     cur.execute(find)
     posts = cur.fetchall()
     return render_template('feed.html', posts = posts)
@@ -154,6 +158,8 @@ def feed():
     
 @app.route('/kebabPlaces', methods = ['POST', 'GET'])
 def kebabPlaces():
+    if not session.get('logged_in'):
+        return render_template('login.html')
     cur = conn.cursor()
     find = "select * from Kebabsted"
     cur.execute(find)
@@ -162,6 +168,8 @@ def kebabPlaces():
 
 @app.route('/denLokale', methods = ['POST', 'GET'])
 def denLokale():
+    if not session.get('logged_in'):
+        return render_template('login.html')
     uid = session.get('uid')
     cur.execute("select * from kebabsted order by name asc")
     kebabs = cur.fetchall()      
