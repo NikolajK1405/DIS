@@ -3,7 +3,8 @@
 To start the website, you'll need to do 4 things:
 
 1. First, you must install the required Python packages with `pip install -r requirements.txt`.
-2. The file path in `CreateKebab.sql` must be changed to where `src/tmp/kebab.csv` is on your device.
+2. The file paths in `CreateKebab.sql` and `CreatePosts.sql` must be changed to where `src/tmp/kebab.csv` 
+   and `src/tmp/posts.csv` is on your device.
 3. All the tables need to be created with `psql -d [database] -U [username] -W -f Create[table name].sql`.
 4. Database information on line 11 in `app.py` must be changed to your own database.
 
