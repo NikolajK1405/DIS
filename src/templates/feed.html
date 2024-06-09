@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Feed</title>
+  <style>
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #808080;
+        color: #ffffff;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <h1>Feed</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div style="color: red;">
+        <!-- Optionally style the message display -->
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <a href="/" class="button">Back to Homepage</a>
+    {% for post in posts %}
+    <h1>{{post[0]}}</h1>
+    <p>User: {{post[1]}}</p>
+    <p>Kebab place: {{post[2]}}</p>
+    <p>Rating: {{post[3]}}</p>
+    <p>{{post[4]}}</p>
+    {% endfor %}
+    <a href="/" class="button">Back to Homepage</a>
+</body>
+</html>

@@ -87,6 +87,7 @@ def cAccount():
         
 @app.route('/post', methods = ['POST', 'GET'])
 def post():
+    cur = conn.cursor()
     cur.execute("select kid, name from kebabsted order by name asc")
     kebabs = cur.fetchall()
     
@@ -141,8 +142,19 @@ def post():
     else:
         return render_template("post.html", kebabs = kebabs)
 
+@app.route('/feed', methods = ['GET'])
+def feed():
+    cur = conn.cursor()
+    find = '''select P.title, U.username, K.name, P.rating, P.status from Kebabsted K, posts P, users U
+            where P.creator_id = U.uid and P.kebab_id = K.kid'''
+    cur.execute(find)
+    posts = cur.fetchall()
+    return render_template('feed.html', posts = posts)
+    
+    
 @app.route('/kebabPlaces', methods = ['POST', 'GET'])
 def kebabPlaces():
+    cur = conn.cursor()
     find = "select * from Kebabsted"
     cur.execute(find)
     places = cur.fetchall()
