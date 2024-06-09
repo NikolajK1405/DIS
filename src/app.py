@@ -106,7 +106,7 @@ def post():
         cur.execute(insert, (pid, title, rating, uid, kid, d, status))
         conn.commit()
 
-        return redirect(url_for("home"))
+        return redirect(url_for("start"))
 
     else:
         cur.execute("select kid, name from kebabsted order by name asc")
