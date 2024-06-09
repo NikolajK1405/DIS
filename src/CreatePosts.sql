@@ -6,5 +6,5 @@ CREATE TABLE posts(pid int, title varchar(50),
     CONSTRAINT post_pk PRIMARY KEY (pid));
 
 copy posts(pid,title,rating,uid,kid,date,status)
-            from '/Users/nikolajkrarup/Documents/DocsNikospro/Noter/DIS/grup/DIS/tmp/posts.csv'
+            from '/path/to/tmp/posts.csv'
             WITH (FORMAT CSV, delimiter ',',HEADER, ENCODING 'UTF8');
