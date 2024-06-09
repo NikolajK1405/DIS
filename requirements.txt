@@ -1,5 +1,4 @@
 flask
 flask_bcrypt
-flask_login
 psycopg2
 requests
