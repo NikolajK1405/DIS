@@ -11,7 +11,7 @@ from psycopg2.sql import NULL
 
 app = Flask(__name__)
 
-db = "dbname='nikolajkrarup' user='nikolajkrarup' host='localhost' password='Charlie04.'"
+db = "dbname='test' user='postgres' host='localhost' password='emil494k'"
 
 conn = psycopg2.connect(db)
 cur = conn.cursor()
@@ -116,25 +116,26 @@ def post():
         get = "select * from posts"
         d = date.today().strftime("%d/%m-%y")
 
-        insert = "INSERT INTO posts(pid, title, rating, creator_id, kebab_id, date, status) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        insert = "INSERT INTO posts(pid, title, rating, uid, kid, date, status) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         cur.execute(insert, (pid, title, rating, uid, kid, d, status))
         conn.commit()
         
         update = '''update kebabsted set rating = 
-                                   (select avg(rating) from posts where kid = %s)
-                                   where kid = %s '''
-        cur.execute(update, (kid, kid)) 
+                                   (select avg(rating) from posts where kid = kebabsted.kid)
+                                where kid = %s '''
+        cur.execute(update, (kid,)) 
         conn.commit()
 
         get = "select * from lokale where uid = %s"
         cur.execute(get, (uid,))
         lokale = cur.fetchone()
-        lokale_id = lokale[1]
-        if kid == lokale_id:
-            visits = int(lokale[2])
-            update = "update lokale set visits = %s where kid = %s"
-            cur.execute(update, (visits+1, kid))
-            conn.commit()
+        if lokale != None:
+            lokale_id = lokale[1]
+            if kid == lokale_id:
+                visits = int(lokale[2])
+                update = "update lokale set visits = %s where kid = %s"
+                cur.execute(update, (visits+1, kid))
+                conn.commit()
 
         return redirect(url_for("start"))
 
@@ -176,6 +177,9 @@ def denLokale():
     else:
         return render_template("lokale.html", lokale = lokale, kebabs = kebabs)
         
+#@app.route('/followers')
+#def followers():
+#    return render_template("followers.html")
 
 #@app.route('/users')
 #def user():
