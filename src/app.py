@@ -151,7 +151,7 @@ def feed():
         return render_template('login.html')
     cur = conn.cursor()
     find = '''select P.title, U.username, K.name, P.rating, P.status from Kebabsted K, posts P, users U
-              where P.creator_id = U.uid and P.kebab_id = K.kid'''
+              where P.uid = U.uid and P.kid = K.kid'''
     cur.execute(find)
     posts = cur.fetchall()
     return render_template('feed.html', posts = posts)
