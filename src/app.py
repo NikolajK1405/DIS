@@ -8,7 +8,7 @@ import psycopg2.sql
 
 app = Flask(__name__)
 
-db = "dbname='nikolajkrarup' user='nikolajkrarup' host='localhost' password='Charlie04.'"
+db = "dbname='[database name]' user='[username]' host='localhost' password='[password]'"
 
 conn = psycopg2.connect(db)
 cur = conn.cursor()
