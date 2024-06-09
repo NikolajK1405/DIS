@@ -11,7 +11,7 @@ from psycopg2.sql import NULL
 
 app = Flask(__name__)
 
-db = "dbname='nikolajkrarup' user='nikolajkrarup' host='localhost' password='Charlie04.'"
+db = "dbname='test' user='postgres' host='localhost' password='emil494k'"
 
 conn = psycopg2.connect(db)
 cur = conn.cursor()
@@ -29,7 +29,7 @@ def start():
         username = None
         kebabnum = None
         if session.get('logged_in'):
-            uid = session.get('uid')[0]
+            uid = session.get('uid')
             find = " SELECT username, kebabnum from users where uid = %s"
             cur.execute(find, (uid,))
             user = cur.fetchone()
@@ -87,31 +87,48 @@ def cAccount():
         
 @app.route('/post', methods = ['POST', 'GET'])
 def post():
-    cur = conn.cursor()
+    cur.execute("select kid, name from kebabsted order by name asc")
+    kebabs = cur.fetchall()
+    
     if request.method == 'POST':
         title = request.form['title']
         rating = request.form['rating']
         status = request.form['status']
         kid = request.form['kebab']
         
+        try:
+            rating = float(rating)
+        except:
+            flash("Rating must be a number")
+            return render_template("post.html", kebabs = kebabs)
+        if rating > 5 or rating < 1:
+            flash("Rating must be a number between 1.0 and 5.0")
+            return render_template("post.html", kebabs = kebabs)
+
         cur.execute("select * from posts")
         pid = len(cur.fetchall()) + 1
         uid = session.get('uid')
         
+        update = "update users set kebabnum = kebabnum + 1 where uid = %s "
+        cur.execute(update, (uid,)) 
+        conn.commit()
+
         get = "select * from posts"
         d = date.today().strftime("%d/%m-%y")
 
         insert = "INSERT INTO posts(pid, title, rating, creator_id, kebab_id, date, status) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-
         cur.execute(insert, (pid, title, rating, uid, kid, d, status))
+        conn.commit()
+        
+        update = '''update kebabsted set rating = 
+                                   (select avg(rating) from posts where kid = %s)
+                                   where kid = %s '''
+        cur.execute(update, (kid, kid)) 
         conn.commit()
 
         return redirect(url_for("start"))
 
     else:
-        cur.execute("select kid, name from kebabsted order by name asc")
-        kebabs = cur.fetchall()
-    
         return render_template("post.html", kebabs = kebabs)
 
 @app.route('/kebabPlaces', methods = ['POST', 'GET'])
@@ -120,6 +137,35 @@ def kebabPlaces():
     cur.execute(find)
     places = cur.fetchall()
     return render_template("kebabPlaces.html", places = places)
+
+@app.route('/denLokale', methods = ['POST', 'GET'])
+def denLokale():
+    uid = session.get('uid')
+    cur.execute("select * from kebabsted order by name asc")
+    kebabs = cur.fetchall()      
+
+    if request.method == 'POST':
+        t = request.form['type']
+        newLokale = request.form['kebab']
+        if t == "insert": 
+            insert = "insert into lokale(uid, kid) values (%s, %s)"
+            cur.execute(insert, (uid, newLokale))
+            conn.commit()
+        elif t == "update":
+            update = "update lokale set kid = %s where uid = %s"
+            cur.execute(update, (newLokale, uid))
+            conn.commit()
+
+    find = '''select K.name, K.rating, K.adresse, K.menu from Kebabsted K, lokale L 
+                                              where L.uid = %s and L.kid = K.kid'''
+    cur.execute(find, (uid,))
+    lokale = cur.fetchone()
+    if lokale == None:
+        msg = "You haven't picked a Lokal"
+        return render_template("lokale.html", lokale = msg, kebabs = kebabs)
+    else:
+        return render_template("lokale.html", lokale = lokale, kebabs = kebabs)
+        
 
 #@app.route('/users')
 #def user():

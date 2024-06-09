@@ -3,13 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Kebab Places</title>
+    <style>
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #808080;
+        color: #ffffff;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    </style>
 </head>
 <body>
+    <a href="/" class="button">Back to Homepage</a>
     {% for place in places %}
     <h1>{{place[1]}}</h1>
     <p>Address: {{place[3]}}</p>
     <p>Rating: {{place[2]}}</p>
     <p>Menu: {{place[4]}}</p>
     {% endfor %}
+    <a href="/" class="button">Back to Homepage</a>
 </body>
 </html>
