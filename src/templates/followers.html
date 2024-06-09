@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kebab Places</title>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #808080;
+            color: #ffffff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>You follow:</h1>
+    {% if follows == [] %}
+    <p>You don't follow anyone</p>
+    {%else%}
+    {% for follower in follows %}
+    <h2>{{follower[0]}}</h2>
+    {% endfor %}
+    {% endif %}
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div style="color: red;">
+        <!-- Optionally style the message display -->
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <br>
+    <p>Follow someone, press enter when you're done typing:</p>
+    <form action="/followers" method="POST">
+        <label for="username">Username</label><br>
+        <input type="text" name="username" id="username" required><br><br>
+    </form>
+    <a href="/" class="button">Back to Homepage</a>
+</body>
+</html>

@@ -1,13 +1,10 @@
-from flask import Flask, render_template, redirect, url_for, session, abort, request, flash
+from flask import Flask, render_template, redirect, url_for, session, request, flash
 import psycopg2
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
 import os
-import glob
 from datetime import date
 import re
-
-from psycopg2.sql import NULL
+import psycopg2.sql
 
 app = Flask(__name__)
 
@@ -204,9 +201,49 @@ def denLokale():
     else:
         return render_template("lokale.html", lokale = lokale, kebabs = kebabs)
         
-#@app.route('/followers')
-#def followers():
-#    return render_template("followers.html")
+@app.route('/followers', methods = ['POST', 'GET'])
+def followers():
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    
+    uid = session.get('uid')
+    find = '''select U.username from follows F, users U 
+                                              where F.uid = %s and U.uid = F.fid'''
+    cur.execute(find, (uid,))
+    follows = cur.fetchall()
+    
+    if request.method == 'POST':
+        toFollow = request.form['username']
+        find = '''select * from users where username = %s'''
+        cur.execute(find, (toFollow,))
+        user = cur.fetchone()
+        if user == None:
+            msg = f'No user with the username: {toFollow}'
+            flash(msg)
+            return render_template("followers.html", follows = follows)
+        
+        find = '''select * from follows where fid = %s'''
+        cur.execute(find, (user[0],))
+        f = cur.fetchone()
+        if not f == None:
+            msg = f'You already follow: {toFollow}'
+            flash(msg)
+            return render_template("followers.html", follows = follows)
+        
+        insert = "insert into follows(uid, fid) values(%s, %s)"
+        cur.execute(insert, (uid, user[0]))
+        conn.commit()
+        
+        find = '''select U.username from follows F, users U 
+                                              where F.uid = %s and U.uid = F.fid'''
+        cur.execute(find, (uid,))
+        follows = cur.fetchall()
+        
+        msg = f'Follow successful: {toFollow}'
+        flash(msg)
+        return render_template("followers.html", follows = follows)
+    
+    return render_template("followers.html", follows = follows)
 
 #@app.route('/users')
 #def user():
