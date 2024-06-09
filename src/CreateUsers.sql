@@ -1,11 +1,13 @@
-DROP TABLE IF EXISTS users; -- hjælper på test, men slet senere
+DROP TABLE IF EXISTS users;
 
-CREATE TABLE IF NOT EXISTS users( uid char(3), username char(20) NOT NULL,
+CREATE TABLE users( uid char(3), username char(20) NOT NULL,
     password char(20) NOT NULL, kebabnum int,
     CONSTRAINT user_pk PRIMARY KEY (uid));
 
 
 -- (chat)
-INSERT INTO users VALUES ('1', 'tis', 'mand', 23);
+INSERT INTO users VALUES ('1', 'Simon', 'KebabLover', 1200);
 
-INSERT INTO users VALUES ('2', 'simon', 'sion', 100);
+INSERT INTO users VALUES ('2', 'Emil', 'kebab4Eva', 55);
+
+INSERT INTO users VALUES ('3', 'Nikolaj', 'YayKebab', 333);

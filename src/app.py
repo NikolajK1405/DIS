@@ -11,7 +11,7 @@ from psycopg2.sql import NULL
 
 app = Flask(__name__)
 
-db = "dbname='test' user='postgres' host='localhost' password='emil494k'"
+db = "dbname='nikolajkrarup' user='nikolajkrarup' host='localhost' password='Charlie04.'"
 
 conn = psycopg2.connect(db)
 cur = conn.cursor()
@@ -48,8 +48,8 @@ def login():
     cur.execute(find, (username, password))
 
     user = cur.fetchone()
-    LoggedIn = len(user) != 0
-
+    LoggedIn = user != None
+    
     if LoggedIn:
         session['logged_in'] = True
         session['uid'] = (user[0])[0]
@@ -74,11 +74,16 @@ def cAccount():
                       No special characters are allowed''')
                 return redirect(url_for("cAccount"))
             cur.execute("select * from users")
-            count = len(cur.fetchall())
+            count = len(cur.fetchall())+1
             insert = "INSERT INTO users(uid, username, password, kebabnum) VALUES (%s, %s, %s, %s)"
-            cur.execute(insert, (count+1, username, password, 0))
+            cur.execute(insert, (count, username, password, 0))
             conn.commit()
             flash('Account creation succesful')
+
+            insert = "insert into follows values (%s, 1), (%s, 2), (%s, 3)"
+            cur.execute(insert, (count, count, count))
+            conn.commit()
+            
             return redirect(url_for("start"))
         else: 
             flash('Username already exists!')
@@ -150,10 +155,12 @@ def feed():
     if not session.get('logged_in'):
         return render_template('login.html')
     cur = conn.cursor()
-    find = '''select P.title, U.username, K.name, P.rating, P.status from Kebabsted K, posts P, users U
-              where P.uid = U.uid and P.kid = K.kid'''
-    cur.execute(find)
+    find = '''select distinct P.title, U.username, K.name, P.rating, P.status, P.pid from Kebabsted K, posts P, users U, follows F
+              where P.uid = U.uid and P.kid = K.kid and (P.uid = F.fid or P.uid = %s) order by P.pid asc'''
+    uid = session.get('uid')
+    cur.execute(find, (uid,))
     posts = cur.fetchall()
+    posts.reverse()
     return render_template('feed.html', posts = posts)
     
     
